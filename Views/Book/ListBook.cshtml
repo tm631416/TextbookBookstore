@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Book>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<p>This is the list page</p>
+<a asp-action="AddBook" asp-controller="Book">Add Book</a>
+<a asp-action="AddLanguage" asp-controller="Language">Add Language</a>
+<a asp-action="IndexCart" asp-controller="Cart">View Cart</a>
+<a asp-action="PriorOrders" asp-controller="Cart">View Prior Orders</a>
+
+<form method="get" asp-action="ListBook">
+    <label for="language">Filter by Language:</label>
+    <select id="language" name="language" onchange="this.form.submit()">
+        <option value="">All Languages</option>
+        @foreach (var language in ViewBag.Languages)
+        {
+            if (ViewBag.SelectedLanguage == language.LanguageName)
+            {
+                <option value="@language.LanguageName" selected>@language.LanguageName</option>
+            }
+            else
+            {
+                <option value="@language.LanguageName">@language.LanguageName</option>
+            }
+        }
+    </select>
+</form>
+
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Cover</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Language</th>
+            <th>Price</th>
+            <th>Published Date</th>
+            <th></th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(book.BookCover))
+                    {
+                        <img src="@book.BookCover" style="width: 100px; height: auto;" />
+                    }
+                </td>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>@book.Language.LanguageName</td>
+                <td>@book.Price</td>
+                <td>@book.PublishedDate.ToShortDateString()</td>
+                <td>
+                    @if (User.Identity.IsAuthenticated){
+                        <a asp-action="EditBook" asp-controller="Book" asp-route-id="@book.BookId">Edit |</a>
+                        <a asp-action="DeleteBook" asp-controller="Book" asp-route-id="@book.BookId">Delete | </a>
+                        <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@book.BookId">Add to Cart</a>
+                    }
+                        <a asp-action="DetailsBook" asp-controller="Book" asp-route-id="@book.BookId">Details</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

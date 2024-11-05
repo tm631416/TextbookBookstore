@@ -1,0 +1,60 @@
+﻿@model Book
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h2>@ViewBag.Action A Book</h2>
+<form asp-action="AddBook" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="BookId" />
+    <div>
+        <label asp-for="Title" class="form-label">Book Title:</label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Author" class="form-label">Book Author:</label>
+        <input asp-for="Author" class="form-control" />
+        <span asp-validation-for="Author" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="LanguageId" class="form-label">Language</label>
+        <select asp-for="LanguageId" asp-items="@(new SelectList(ViewBag.Languages, "LanguageId", "LanguageName"))" class=form-select>
+            <option value="">Select A Language</option>
+        </select>
+        <span asp-validation-for="LanguageId" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Price" class="form-label">Book Price:</label>
+        <input asp-for="Price" class="form-control" value="" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="PublishedDate" class="form-label">Published Date</label>
+        <input asp-for="PublishedDate" class="form-control" type="date" value="" />
+        <span asp-validation-for="PublishedDate" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="BookDescription" class="form-label">Book Description</label>
+        <input asp-for="BookDescription" class="form-control" />
+        <span asp-validation-for="BookDescription" class="text-danger"></span>
+    </div>
+    @* Display existing book cover if available *@
+    @if (!string.IsNullOrEmpty(Model.BookCover))
+    {
+        <div class="mt-3">
+            <label>Current Book Cover:</label>
+            <img src="@Model.BookCover" alt="Book Cover" style="max-width: 200px;" class="d-block" />
+        </div>
+    }
+    <div>
+        <label asp-for="BookCover" class="form-label">Book Cover:</label>
+        <input type="file" name="BookCover" class="form-control" />
+        <span asp-validation-for="BookCover" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add</button>
+    <a asp-action="ListBook" class="btn btn-primary">Cancel</a>
+</form>

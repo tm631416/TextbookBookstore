@@ -1,0 +1,14 @@
+﻿@model Language
+
+<p>This is the add language page</p>
+
+<form asp-action="AddLanguage" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input type="hidden" asp-for="LanguageId" />
+    <div>
+        <label asp-for="LanguageName" class="form-label">Language:</label>
+        <input asp-for="LanguageName" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+    <a asp-action="ListBook" asp-controller="Book" class="btn btn-primary">Cancel</a>
+</form>

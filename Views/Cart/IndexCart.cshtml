@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<p>This is the cart page</p>
+
+@model List<CartItem>
+
+<h2>Your Cart</h2>
+
+<table>
+    <tr>
+        <th>Book Title</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Book.Title</td>
+            <td>@item.Quantity</td>
+            <td>@item.Book.Price</td>
+            <td>@(item.Quantity * item.Book.Price)</td>
+        </tr>
+    }
+</table>
+
+<a asp-action="SubmitOrder" class="btn btn-primary">Submit Order</a>
+<a asp-action="ListBook" asp-controller="Book" class="btn btn-primary">Cancel</a>
