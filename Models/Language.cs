@@ -4,6 +4,7 @@ namespace TextbookBookstore.Models
 {
     public class Language
     {
+        [Key]
         public int LanguageId { get; set; }
         [Required(ErrorMessage = "Please enter a valid language name")]
         public string LanguageName { get; set; } = string.Empty;

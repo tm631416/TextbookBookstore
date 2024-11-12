@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace TextbookBookstore.Controllers
 {
@@ -112,10 +113,30 @@ namespace TextbookBookstore.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
-        public IActionResult DetailsBook(int id)
+        public async Task<IActionResult> DetailsBook(int id)
         {
-            var book = _context.Books.FirstOrDefault(b => b.BookId == id);
-            return View(book);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var book = await _context.Books
+                                    .Include(b => b.Language)
+                                    .FirstOrDefaultAsync(b => b.BookId == id);
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            // Retrieve the user's individual status for this book
+            var userBookStatus = await _context.UserBookStatuses
+                                               .FirstOrDefaultAsync(ubs => ubs.BookId == id && ubs.UserId == userId);
+
+            var viewModel = new BookDetailsViewModel
+            {
+                Book = book,
+                UserStatus = userBookStatus?.Status ?? "Not Started" // Default to "Not Started" if no status exists
+            };
+
+            return View(viewModel);
         }
         public ActionResult FilterLanguage(string id)
         {
@@ -126,6 +147,43 @@ namespace TextbookBookstore.Controllers
             return RedirectToAction("List", "Book");
         }
 
+        [HttpGet]
+        public IActionResult BookStatus(int id)
+        {
+            var book = _context.Books.Find(id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return View(book);
+        }
+        [HttpPost]
+        public async Task<IActionResult> BookStatus(int id, string BookStatus)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userBookStatus = await _context.UserBookStatuses
+                .FirstOrDefaultAsync(ubs => ubs.BookId == id && ubs.UserId == userId);
+
+            if (userBookStatus == null)
+            {
+                userBookStatus = new UserBookStatus
+                {
+                    BookId = id,
+                    UserId = userId,
+                    Status = BookStatus
+                };
+                _context.UserBookStatuses.Add(userBookStatus);
+            }
+            else
+            {
+                userBookStatus.Status = BookStatus;
+                _context.UserBookStatuses.Update(userBookStatus);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("DetailsBook", new { id });
+        }
 
     }
 }
