@@ -11,17 +11,25 @@
 <p>Order ID: @Model.OrderId</p>
 
 <table>
-    <tr>
-        <th>Book Title</th>
-        <th>Quantity</th>
-        <th>Price</th>
-    </tr>
-    @foreach(var detail in Model.OrderDetails)
-    {
+    <thead>
         <tr>
-            <td>@detail.Book.Title</td>
-            <td>@detail.Quantity</td>
-            <td>@detail.Price</td>
+            <th>Book Title</th>
+            <th>Quantity</th>
+            <th>Price</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var detail in Model.OrderDetails)
+        {
+            <tr>
+                <td>@detail.Book.Title</td>
+                <td>@detail.Quantity</td>
+                <td>@detail.Price.ToString("C2")</td>
+            </tr>
+        }
+    </tbody>
+
 </table>
+
+<a asp-action="ListBook" asp-controller="Book" class="btn btn-primary">Return to Books</a>
+<a asp-action="PriorOrders" asp-controller="Cart" class="btn btn-primary">Prior Orders</a>

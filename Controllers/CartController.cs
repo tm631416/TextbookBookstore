@@ -29,6 +29,13 @@ namespace TextbookBookstore.Controllers
             _cartService.AddToCart(id, quantity);
             return RedirectToAction("ListBook", "Book");
         }
+        public async Task<IActionResult> ClearCart()
+        {
+            _cartService.ClearCart();
+            _context.SaveChanges();
+            return RedirectToAction("IndexCart", "Cart");
+        }
+
         public async Task<IActionResult> SubmitOrder()
         {
             var cart = _cartService.GetCart();

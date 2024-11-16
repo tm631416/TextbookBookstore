@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<Language>
+
+<h2>List of Languages</h2>
+<a asp-action="AddLanguage" asp-controller="Language">Add A Language</a>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Language ID</th>
+            <th>Language Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var language in Model)
+        {
+            <tr>
+                <td>@language.LanguageId</td>
+                <td>@language.LanguageName</td>
+                <td>
+                    <a asp-action="EditLanguage" asp-controller="Language" asp-route-id="@language.LanguageId">Edit</a>
+                    <a asp-action="DeleteLanguage" asp-controller="Language" asp-route-id="@language.LanguageId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

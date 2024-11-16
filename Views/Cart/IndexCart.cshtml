@@ -1,31 +1,46 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+    Next work on if/else statement for an empty cart
 *@
 @{
 }
-<p>This is the cart page</p>
-
-@model List<CartItem>
-
 <h2>Your Cart</h2>
 
-<table>
-    <tr>
-        <th>Book Title</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Total</th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.Book.Title</td>
-            <td>@item.Quantity</td>
-            <td>@item.Book.Price</td>
-            <td>@(item.Quantity * item.Book.Price)</td>
-        </tr>
-    }
-</table>
+@model List<CartItem>
+@if (!Model.Any())
+{
+    <p>There are currently no items in your cart.</p>
+    <a asp-action="ListBook" asp-controller="Book" class="btn btn-primary">Return to Books</a>
+}
+else
+{
+    <h2>Your Cart</h2>
 
-<a asp-action="SubmitOrder" class="btn btn-primary">Submit Order</a>
-<a asp-action="ListBook" asp-controller="Book" class="btn btn-primary">Cancel</a>
+    <table>
+        <tr>
+            <th>Book Title</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Book.Title</td>
+                <td>@item.Quantity</td>
+                <td>@item.Book.Price</td>
+                <td>@(item.Quantity * item.Book.Price)</td>
+                <td><a asp-action="ClearCart" asp-controller="Cart" class="btn btn-primary" asp-route-id="@item.CartItemId">Remove From Cart</a></td>
+            </tr>
+        }
+    </table>
+
+    <a asp-action="SubmitOrder" class="btn btn-primary">Submit Order</a>
+    <a asp-action="ListBook" asp-controller="Book" class="btn btn-primary">Cancel</a>
+}
+
+
+
+

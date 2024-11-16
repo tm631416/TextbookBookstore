@@ -34,6 +34,7 @@
 @if (User.Identity.IsAuthenticated)
 {
     <a asp-action="BookStatus" asp-controller="Book" class="btn btn-primary" asp-route-id="@Model.Book.BookId">Alter Book Status</a>
+    <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.Book.BookId" class="btn btn-primary">Add to Cart</a>
 }
 
 <a asp-action="ListBook" asp-controller="Book" class="btn btn-primary">Back to List</a>

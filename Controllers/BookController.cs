@@ -12,7 +12,6 @@ namespace TextbookBookstore.Controllers
     public class BookController : Controller
     {
         private readonly ApplicationDbContext _context;
-
         public BookController(ApplicationDbContext context)
         {
             _context = context;
@@ -29,6 +28,7 @@ namespace TextbookBookstore.Controllers
             ViewBag.SelectedLanguage = language;
             return View(books);
         }
+        [Authorize(Roles="Admin")]
         [HttpGet]
         public IActionResult AddBook()
         {
@@ -40,6 +40,7 @@ namespace TextbookBookstore.Controllers
             };
             return View(model);
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> AddBook(Book book, IFormFile? BookCover)
         {
@@ -90,7 +91,7 @@ namespace TextbookBookstore.Controllers
             }
             return View(book);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult EditBook(int id)
         {
@@ -99,6 +100,7 @@ namespace TextbookBookstore.Controllers
             ViewBag.Languages = _context.Languages.OrderBy(l => l.LanguageName).ToList();
             return View("AddBook", book);
         }
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult DeleteBook(int id)
         {
@@ -106,6 +108,7 @@ namespace TextbookBookstore.Controllers
             ViewBag.Languages = _context.Languages.OrderBy(l => l.LanguageName).ToList();
             return View(book);
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult DeleteBook(Book book)
         {
@@ -146,7 +149,6 @@ namespace TextbookBookstore.Controllers
             books = books.Where(b => b.Language.LanguageName.Equals(languageType));
             return RedirectToAction("List", "Book");
         }
-
         [HttpGet]
         public IActionResult BookStatus(int id)
         {

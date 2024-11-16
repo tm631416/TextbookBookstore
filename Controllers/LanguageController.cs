@@ -1,6 +1,8 @@
 ﻿using TextbookBookstore.Models;
 using Microsoft.AspNetCore.Mvc;
 using TextbookBookstore.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TextbookBookstore.Controllers
 {
@@ -10,27 +12,59 @@ namespace TextbookBookstore.Controllers
         public LanguageController(ApplicationDbContext ctx) => context = ctx;
         public IActionResult Index()
         {
-            return View();
+            var query = context.Languages.ToList();
+            return View(query);
         }
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult AddLanguage()
         {
+            ViewBag.Action = "Add";
             return View(new Language());
         }
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public IActionResult EditLanguage(int id)
+        {
+            var query = context.Languages.Find(id);
+            return View("AddLanguage", query);
+        }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddLanguage(Language language)
         {
             if (ModelState.IsValid)
             {
-                context.Languages.Add(language);
+                if(language.LanguageId == 0)
+                {
+                    context.Languages.Add(language);
+                }
+                else
+                {
+                    context.Languages.Update(language);
+                }
                 context.SaveChanges();
-                return RedirectToAction("ListBook", "Book");
+                return RedirectToAction("Index", "Language");
             }
             else
             {
                 return View(language);
             }
-
         }
-    }
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public IActionResult DeleteLanguage(int id)
+        {
+            var query = context.Languages.Find(id);
+            return View(query);
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public IActionResult DeleteLanguage(Language language)
+        {
+            context.Languages.Remove(language);
+            context.SaveChanges();
+            return RedirectToAction("Index", "Language");
+        }
+}
 }

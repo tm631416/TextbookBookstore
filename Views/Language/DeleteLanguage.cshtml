@@ -1,0 +1,14 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Language
+<h2>Delete A Language</h2>
+
+<form asp-action="DeleteLanguage" method="post">
+    <input type="hidden" asp-for="LanguageId" />
+    <h3>@Model.LanguageName</h3>
+    <button type="submit" class="btn btn-primary">Delete</button>
+    <a asp-controller="Language" asp-action="Index" class="btn btn-primary">Cancel</a>
+</form>
