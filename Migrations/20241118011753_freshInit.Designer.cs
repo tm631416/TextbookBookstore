@@ -12,8 +12,8 @@ using TextbookBookstore.Data;
 namespace TextbookBookstore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241114011325_addClassesToDb")]
-    partial class addClassesToDb
+    [Migration("20241118011753_freshInit")]
+    partial class freshInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

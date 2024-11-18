@@ -47,26 +47,28 @@ namespace TextbookBookstore.Controllers
             ViewBag.Languages = _context.Languages.OrderBy(l => l.LanguageName).ToList();
             try
             {
+                // Check if a new file is uploaded
+                if (BookCover != null && BookCover.Length > 0)
+                {
+                    var fileName = Guid.NewGuid() + Path.GetExtension(BookCover.FileName);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await BookCover.CopyToAsync(stream);
+                    }
+                    book.BookCover = "images/" + fileName;
+                    ModelState.Remove("BookCover");
+                }
+                else if (book.BookId != 0) // Editing an existing book without uploading a new cover
+                {
+                    // Retrieve the existing book from the database to keep the current BookCover path
+                    var existingBook = await _context.Books.AsNoTracking().FirstOrDefaultAsync(b => b.BookId == book.BookId);
+                    book.BookCover = existingBook?.BookCover;
+                    ModelState.Remove("BookCover");
+                }
+                
                 if (ModelState.IsValid)
                 {
-                    // Check if a new file is uploaded
-                    if (BookCover != null && BookCover.Length > 0)
-                    {
-                        var fileName = Guid.NewGuid() + Path.GetExtension(BookCover.FileName);
-                        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
-                        using (var stream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await BookCover.CopyToAsync(stream);
-                        }
-                        book.BookCover = "/images/" + fileName;
-                    }
-                    else if (book.BookId != 0) // Editing an existing book without uploading a new cover
-                    {
-                        // Retrieve the existing book from the database to keep the current BookCover path
-                        var existingBook = await _context.Books.AsNoTracking().FirstOrDefaultAsync(b => b.BookId == book.BookId);
-                        book.BookCover = existingBook?.BookCover;
-                    }
-
                     if (book.BookId == 0) // Adding a new book
                     {
                         book.PublishedDate = book.PublishedDate.Date;
@@ -82,6 +84,14 @@ namespace TextbookBookstore.Controllers
                 }
                 else
                 {
+                    // Log ModelState errors for debugging
+                    foreach (var state in ModelState.Values)
+                    {
+                        foreach (var error in state.Errors)
+                        {
+                            Console.WriteLine(error.ErrorMessage);
+                        }
+                    }
                     return View(book);
                 }
             }
