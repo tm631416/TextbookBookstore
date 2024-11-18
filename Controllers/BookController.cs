@@ -16,37 +16,31 @@ namespace TextbookBookstore.Controllers
         {
             _context = context;
         }
-        public IActionResult ListBook(string? language)
+        public IActionResult ListBook(string? language, string? className)
         {
-            IQueryable<Book> query = _context.Books.Include(b => b.Language);
+            IQueryable<Book> query = _context.Books.Include(b => b.Language).Include(b => b.Class);
+
             if (!string.IsNullOrEmpty(language))
             {
                 query = query.Where(b => b.Language.LanguageName == language);
             }
-            
+
+            if (!string.IsNullOrEmpty(className))
+            {
+                query = query.Where(b => b.Class.ClassName == className);
+            }
+    
             var books = query.OrderBy(b => b.Title).ToList();
-            ViewBag.Languages = _context.Languages.OrderBy(l => l.LanguageName).ToList();
-            ViewBag.Classes = _context.Classes.OrderBy(c => c.ClassName).ToList();
+    
+            ViewBag.Languages = _context.Languages.ToList();
+            ViewBag.Classes = _context.Classes.ToList();
             ViewBag.SelectedLanguage = language;
+            ViewBag.SelectedClass = className;
+    
             return View(books);
         }
-        public ActionResult FilterLanguage(string id)
-        {
-            string languageType = ViewBag.LanguageType;
-            string textFilter = id;
-            var books = from b in _context.Books select b;
-            books = books.Where(b => b.Language.LanguageName.Equals(languageType));
-            return RedirectToAction("List", "Book");
-        }
 
-        public ActionResult FilterClass(string id)
-        {
-            string classType = ViewBag.ClassType;
-            string textFilter = id;
-            var books = from b in _context.Books select b;
-            books = books.Where(b => b.Class.ClassName.Equals(classType));
-            return RedirectToAction("List", "Book");
-        }
+
         [Authorize(Roles="Admin")]
         [HttpGet]
         public IActionResult AddBook()
