@@ -8,17 +8,19 @@
     <div class="row">
         <!--Start of Left Column-->
         <div class="col-md-3">
-            <form method="get" asp-action="ListBook" class="mb-4">
-                <label for="language">Filter by Language:</label>
-                <select id="language" name="language" onchange="this.form.submit()" class="form-select">
-                    <option value="">All Languages</option>
-                    @foreach (var language in ViewBag.Languages)
-                    {
-                        <option value="@language.LanguageName" selected=@(ViewBag.SelectedLanguage == language.LanguageName ? "selected" : "")>
-                            @language.LanguageName
-                        </option>
-                    }
-                </select>
+            <form method="get" asp-action="FilterLanguages" class="mb-4">
+                <div>
+                    <label for="language">Filter by Language:</label>
+                    <select id="language" name="language" onchange="this.form.submit()" class="form-select">
+                        <option value="">All Languages</option>
+                        @foreach (var language in ViewBag.Languages)
+                        {
+                            <option value="@language.LanguageName" selected=@(ViewBag.SelectedLanguage == language.LanguageName ? "selected" : "")>
+                                @language.LanguageName
+                            </option>
+                        }
+                    </select>
+                </div>
             </form>
             @if (User.IsInRole("Admin"))
             {
@@ -48,6 +50,7 @@
                             <p class="card-text">
                                 <strong>Author:</strong> @book.Author<br />
                                 <strong>Language:</strong> @book.Language.LanguageName<br />
+                                <strong>Class:</strong> @book.Class.ClassName<br />
                                 <strong>Price:</strong> $@book.Price<br />
                                 <strong>Published:</strong> @book.PublishedDate.ToShortDateString()
                             </p>

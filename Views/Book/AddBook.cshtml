@@ -25,6 +25,13 @@
         </select>
         <span asp-validation-for="LanguageId" class="text-danger"></span>
     </div>
+
+    <div>
+        <label asp-for="ClassId" class="form-label">Class</label>
+        <select asp-for="ClassId" asp-items="@(new SelectList(ViewBag.Classes, "ClassId", "ClassName"))" class="form-select">
+            <option value="">Select A Class</option>
+        </select>
+    </div>
     <div>
         <label asp-for="Price" class="form-label">Book Price:</label>
         <input asp-for="Price" class="form-control" value="" />

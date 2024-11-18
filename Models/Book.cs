@@ -29,5 +29,11 @@ namespace TextbookBookstore.Models
         [Required(ErrorMessage = "Please select a language")]
         [ForeignKey("Language")]
         public int LanguageId { get; set; }
+
+        [ValidateNever]
+        public Class Class { get; set; } = null!;
+        [Required(ErrorMessage = "Please select a class.")]
+        [ForeignKey("Class")]
+        public int ClassId { get; set; }
     }
 }

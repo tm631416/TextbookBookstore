@@ -23,10 +23,29 @@ namespace TextbookBookstore.Controllers
             {
                 query = query.Where(b => b.Language.LanguageName == language);
             }
+            
             var books = query.OrderBy(b => b.Title).ToList();
             ViewBag.Languages = _context.Languages.OrderBy(l => l.LanguageName).ToList();
+            ViewBag.Classes = _context.Classes.OrderBy(c => c.ClassName).ToList();
             ViewBag.SelectedLanguage = language;
             return View(books);
+        }
+        public ActionResult FilterLanguage(string id)
+        {
+            string languageType = ViewBag.LanguageType;
+            string textFilter = id;
+            var books = from b in _context.Books select b;
+            books = books.Where(b => b.Language.LanguageName.Equals(languageType));
+            return RedirectToAction("List", "Book");
+        }
+
+        public ActionResult FilterClass(string id)
+        {
+            string classType = ViewBag.ClassType;
+            string textFilter = id;
+            var books = from b in _context.Books select b;
+            books = books.Where(b => b.Class.ClassName.Equals(classType));
+            return RedirectToAction("List", "Book");
         }
         [Authorize(Roles="Admin")]
         [HttpGet]
@@ -34,6 +53,7 @@ namespace TextbookBookstore.Controllers
         {
             ViewBag.Action = "Add";
             ViewBag.Languages = _context.Languages.OrderBy(l => l.LanguageName).ToList();
+            ViewBag.Classes = _context.Classes.OrderBy(c => c.ClassName).ToList();
             var model = new Book
             {
                 PublishedDate = DateTime.Today
@@ -45,6 +65,7 @@ namespace TextbookBookstore.Controllers
         public async Task<IActionResult> AddBook(Book book, IFormFile? BookCover)
         {
             ViewBag.Languages = _context.Languages.OrderBy(l => l.LanguageName).ToList();
+            ViewBag.Classes = _context.Classes.OrderBy(c => c.ClassName).ToList();
             try
             {
                 // Check if a new file is uploaded
@@ -151,14 +172,7 @@ namespace TextbookBookstore.Controllers
 
             return View(viewModel);
         }
-        public ActionResult FilterLanguage(string id)
-        {
-            string languageType = ViewBag.LanguageType;
-            string textFilter = id;
-            var books = from b in _context.Books select b;
-            books = books.Where(b => b.Language.LanguageName.Equals(languageType));
-            return RedirectToAction("List", "Book");
-        }
+
         [HttpGet]
         public IActionResult BookStatus(int id)
         {
