@@ -1,0 +1,142 @@
+﻿/* General Styles */
+body {
+    background-image: url('../images/BackgroundImage.png'); /* Path relative to the CSS file */
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-repeat: no-repeat; /* Prevents tiling */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the image fixed while scrolling (optional) */
+    font-family: Arial, sans-serif; /* Sets a clean font */
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Details Container */
+.details-container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* White background with transparency */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    font-size: 2em;
+    color: #6b3d1e; /* Dark brown */
+}
+
+/* Details Layout */
+.details-main {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Left Column: Book Image and Title */
+.details-left {
+    width: 45%;
+    background-color: #f5deb3; /* Light brown */
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+    .details-left h3 {
+        font-size: 1.8em;
+        color: #6b3d1e;
+        margin-bottom: 10px;
+    }
+
+.book-cover {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.details-left p {
+    font-size: 1em;
+    margin: 5px 0;
+}
+
+/* Right Column: Description */
+.details-right {
+    width: 45%;
+    background-color: #e3c8a7; /* Lighter brown */
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+    .details-right h4 {
+        font-size: 1.5em;
+        color: #6b3d1e;
+        margin-bottom: 10px;
+    }
+
+    .details-right p {
+        font-size: 1.1em;
+        color: #555;
+        line-height: 1.6;
+    }
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+    .action-buttons .btn {
+        background-color: #6b3d1e; /* Dark brown */
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+
+        .action-buttons .btn:hover {
+            background-color: #4a2c19; /* Slightly darker brown */
+        }
+
+/* Footer */
+.details-footer {
+    text-align: center;
+    margin-top: 30px;
+}
+
+    .details-footer .btn {
+        background-color: #6b3d1e;
+        color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+        .details-footer .btn:hover {
+            background-color: #4a2c19;
+        }
+
+/* Form and Input Styles for Status */
+.filter-column {
+    background-color: #f5deb3;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+    .filter-column form .form-group {
+        margin-bottom: 15px;
+    }
+
+    .filter-column button {
+        display: block;
+        margin-top: 15px;
+        margin-bottom: 0;
+    }

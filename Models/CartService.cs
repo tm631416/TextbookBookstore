@@ -46,6 +46,17 @@ namespace TextbookBookstore.Models
         {
             _session.Remove("Cart");
         }
+        public void RemoveFromCart(int bookId)
+        {
+            var cart = GetCart();
+            var cartItem = cart.FirstOrDefault(c => c.BookId == bookId);
+            if (cartItem != null)
+            {
+                cart.Remove(cartItem);
+                _session.SetObjectAsJson("Cart", cart); // Update the session storage
+            }
+        }
+
     }
 
 }

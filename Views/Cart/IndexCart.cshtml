@@ -32,11 +32,13 @@ else
                 <td>@item.Quantity</td>
                 <td>@item.Book.Price</td>
                 <td>@(item.Quantity * item.Book.Price)</td>
-                <td><a asp-action="ClearCart" asp-controller="Cart" class="btn btn-primary" asp-route-id="@item.CartItemId">Remove From Cart</a></td>
+                <td>
+                    <a asp-action="RemoveFromCart" asp-route-id="@item.BookId" class="btn btn-danger btn-sm">Remove</a>
+                </td>
             </tr>
         }
     </table>
-
+    <a asp-action="ClearCart" asp-controller="Cart" class="btn btn-danger btn-sm">Clear Cart</a>
     <a asp-action="SubmitOrder" class="btn btn-primary">Submit Order</a>
     <a asp-action="ListBook" asp-controller="Book" class="btn btn-primary">Cancel</a>
 }

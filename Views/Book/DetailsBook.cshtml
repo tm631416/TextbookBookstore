@@ -3,38 +3,45 @@
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@section Styles {
+    <link href="~/css/details.css" rel="stylesheet" />
+}
+
 @{
 }
-<p>This is the details page</p>
+<div class="details-container">
+    <h2>Book Details</h2>
 
-<h2>Details</h2>
-<div>
-    <p><strong>Title:</strong> @Model.Book.Title</p>
-    <p><strong>Author:</strong> @Model.Book.Author</p>
-    <p>
-        @if (!string.IsNullOrEmpty(Model.Book.BookCover))
-        {
-            <img src="~/images/@Model.Book.BookCover" style="width: 100px; height: auto;" />
-        }
-    </p>
-    <p><strong>Language:</strong> @Model.Book.Language.LanguageName</p>
-    @if (User.Identity.IsAuthenticated)
-    {
-        <p><strong>Book Status:</strong> @Model.UserStatus</p>
-    }
+    <div class="details-main">
+        <!-- Left Column: Book Image and Title -->
+        <div class="details-left">
+            <h3>@Model.Book.Title</h3>
+            @if (!string.IsNullOrEmpty(Model.Book.BookCover))
+            {
+                <img src="~/@Model.Book.BookCover" alt="Book Cover" class="book-cover" />
+            }
+            <p><strong>Author:</strong> @Model.Book.Author</p>
+            <p><strong>Language:</strong> @Model.Book.Language.LanguageName</p>
+            <p><strong>Published Date:</strong> @Model.Book.PublishedDate.ToString("MMMM dd, yyyy")</p>
+            <p><strong>Price:</strong> @Model.Book.Price.ToString("C2")</p>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <p><strong>Status:</strong> @Model.UserStatus</p>
+                <div class="action-buttons">
+                    <a asp-action="BookStatus" asp-controller="Book" class="btn btn-primary" asp-route-id="@Model.Book.BookId">Alter Book Status</a>
+                    <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.Book.BookId" class="btn btn-primary">Add to Cart</a>
+                </div>
+            }
+        </div>
 
-    <p><strong>Published Date:</strong> @Model.Book.PublishedDate.ToString("MMMM dd, yyyy")</p>
-    <p><strong>Price:</strong> @Model.Book.Price.ToString("C2")</p>
+        <!-- Right Column: Book Description -->
+        <div class="details-right">
+            <h4>Description</h4>
+            <p>@Model.Book.BookDescription</p>
+        </div>
+    </div>
+
+    <div class="details-footer">
+        <a asp-action="ListBook" asp-controller="Book" class="btn btn-primary">Back to List</a>
+    </div>
 </div>
-
-<div>
-    <p><strong>Description:</strong> @Model.Book.BookDescription</p>
-    
-</div>
-@if (User.Identity.IsAuthenticated)
-{
-    <a asp-action="BookStatus" asp-controller="Book" class="btn btn-primary" asp-route-id="@Model.Book.BookId">Alter Book Status</a>
-    <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.Book.BookId" class="btn btn-primary">Add to Cart</a>
-}
-
-<a asp-action="ListBook" asp-controller="Book" class="btn btn-primary">Back to List</a>

@@ -35,6 +35,12 @@ namespace TextbookBookstore.Controllers
             _context.SaveChanges();
             return RedirectToAction("IndexCart", "Cart");
         }
+        public IActionResult RemoveFromCart(int id)
+        {
+            _cartService.RemoveFromCart(id);
+            return RedirectToAction("IndexCart");
+        }
+
 
         public async Task<IActionResult> SubmitOrder()
         {

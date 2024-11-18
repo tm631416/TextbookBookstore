@@ -1,0 +1,44 @@
+﻿body {
+    background-image: url('../images/BackgroundImage.png'); /* Path relative to the CSS file */
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-repeat: no-repeat; /* Prevents tiling */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the image fixed while scrolling (optional) */
+}
+
+.filter-column {
+    background-color: #f5deb3; /* Light brown color */
+    border-radius: 10px; /* Rounded corners */
+    padding: 15px; /* Adds consistent space inside the box */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
+}
+
+    .filter-column form .form-group {
+        margin-bottom: 15px; /* Adds space between form elements */
+    }
+
+    .filter-column button {
+        display: block; /* Ensures button takes full width if desired */
+        margin-top: 15px; /* Adds space above the button */
+        margin-bottom: 0; /* Prevents unnecessary extra space at the bottom */
+    }
+.table-brown {
+    background-color: #f5deb3; /* Light brown color */
+    color: #ffffff; /* Optional: White text for better contrast */
+    border-collapse: collapse; /* Ensures table borders are neatly collapsed */
+    width: 100%; /* Optional: Makes the table span the full width of its container */
+}
+
+    .table-brown th,
+    .table-brown td {
+        padding: 10px; /* Adds padding inside table cells */
+        border: 1px solid #6b3d1e; /* Adds a subtle border with a darker brown */
+    }
+
+    .table-brown th {
+        background-color: #e3c8a7; /* Lighter brown to match the table */
+        font-weight: bold;
+        text-align: left;
+    }
+
+

@@ -1,0 +1,75 @@
+﻿body {
+    background-image: url('../images/BackgroundImage.png'); /* Path relative to the CSS file */
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-repeat: no-repeat; /* Prevents tiling */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the image fixed while scrolling (optional) */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.details-container {
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: #ffffff; /* White background for content */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.details-main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.details-left,
+.details-right {
+    flex: 1;
+    min-width: 300px;
+}
+
+.details-left {
+    border-right: 2px solid #f5deb3; /* Light brown divider */
+    padding-right: 15px;
+}
+
+.details-right {
+    padding-left: 15px;
+}
+
+h2 {
+    color: #2e7d32; /* Darker green for headers */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h3, h4 {
+    color: #4caf50; /* Lighter green for subheadings */
+}
+
+.book-cover {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    display: block;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.action-buttons a {
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.details-footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+    .details-footer a {
+        margin: 5px;
+    }
