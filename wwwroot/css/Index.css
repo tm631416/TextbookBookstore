@@ -1,0 +1,89 @@
+﻿/* General Page Styling */
+body {
+    background-image: url('../images/BackgroundImage.png'); /* Path relative to the CSS file */
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-repeat: no-repeat; /* Prevents tiling */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the image fixed while scrolling */
+    font-family: Arial, sans-serif; /* Clean and modern font */
+    color: #333; /* General text color */
+    margin: 0;
+    padding: 0;
+}
+
+/* Heading Styling */
+h2 {
+    text-align: center; /* Centers the headings */
+    color: #000; /* Black */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+/* Button Styling */
+a.btn, button.btn {
+    background-color: #6b3d1e; /* Dark brown background */
+    color: white; /* White text for contrast */
+    padding: 10px 15px;
+    border-radius: 5px; /* Rounded corners */
+    text-decoration: none; /* Removes underline from links */
+    font-size: 1em; /* Standard font size */
+    display: inline-block; /* Ensures proper spacing */
+    margin-right: 10px; /* Space between buttons */
+}
+
+    a.btn:hover, button.btn:hover {
+        background-color: #5a3219; /* Slightly darker shade on hover */
+    }
+
+/* Table Styling */
+.table-brown {
+    background-color: #f5deb3; /* Light brown background for the table */
+    color: #333; /* Text color */
+    border-collapse: collapse; /* Neat table borders */
+    width: 100%; /* Table spans full width */
+    margin-top: 20px; /* Space above the table */
+    margin-bottom: 20px; /* Space below the table */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border-radius: 10px; /* Rounded corners for the entire table */
+    overflow: hidden; /* Ensures rounded corners apply to contents */
+}
+
+    .table-brown th, .table-brown td {
+        padding: 10px; /* Padding inside table cells */
+        border: 1px solid #6b3d1e; /* Subtle border with dark brown */
+        text-align: left; /* Aligns text to the left */
+    }
+
+    .table-brown th {
+        background-color: #e3c8a7; /* Light brown for table headers */
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .table-brown td {
+        background-color: #fff; /* White background for table rows */
+    }
+
+    /* Add hover effect to table rows */
+    .table-brown tbody tr:hover {
+        background-color: #f7e7d2; /* Lighter shade on hover */
+    }
+
+    /* Links for Actions (Edit/Delete) */
+    .table-brown a {
+        color: #6b3d1e; /* Dark brown links */
+        text-decoration: none; /* Removes underline */
+        font-weight: bold;
+        margin-right: 10px; /* Space between action links */
+    }
+
+        .table-brown a:hover {
+            text-decoration: underline; /* Underlines on hover for emphasis */
+        }
+
+/* Container for Add Button */
+.add-button-container {
+    text-align: center; /* Centers the "Add" button */
+    margin-bottom: 20px; /* Adds spacing below the button */
+}

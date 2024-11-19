@@ -1,0 +1,88 @@
+﻿/* General body styles */
+/* General body styles */
+body {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('../images/BackgroundImage.png'); /* Adds a white overlay */
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-repeat: no-repeat; /* Prevents tiling */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the image fixed while scrolling (optional) */
+    font-family: Arial, sans-serif; /* Ensures a clean, modern font */
+    color: #333; /* Text color for better readability */
+    margin: 0;
+    padding: 0;
+}
+
+/* Styling for empty cart message */
+.empty-cart {
+    text-align: center;
+    font-size: 1.2rem;
+    margin: 20px 0;
+}
+
+/* Button styles */
+a.btn {
+    text-decoration: none;
+    padding: 10px 15px;
+    margin: 10px 5px;
+    display: inline-block;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+a.btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+    a.btn-primary:hover {
+        background-color: #0056b3;
+        color: white;
+    }
+
+a.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+    a.btn-danger:hover {
+        background-color: #a71d2a;
+        color: white;
+    }
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #f5deb3; /* Light brown color for table */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+    table th,
+    table td {
+        padding: 10px;
+        border: 1px solid #6b3d1e; /* Subtle darker border */
+        text-align: center; /* Center text in cells */
+    }
+
+    table th {
+        background-color: #e3c8a7; /* Lighter brown for headers */
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #6b3d1e; /* Darker text color for contrast */
+    }
+
+    table img {
+        max-width: 75px;
+        max-height: 100px;
+        object-fit: cover;
+        border-radius: 5px; /* Rounded corners for images */
+    }
+
+/* Total row and buttons at the bottom */
+.cart-actions {
+    margin: 20px 0;
+    text-align: right;
+}

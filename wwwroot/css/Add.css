@@ -1,0 +1,106 @@
+﻿/* General Page Styling */
+body {
+    background-image: url('../images/BackgroundImage.png'); /* Path relative to the CSS file */
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-repeat: no-repeat; /* Prevents tiling */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the image fixed while scrolling */
+    font-family: Arial, sans-serif; /* General font for a clean look */
+    color: #333; /* Text color for good readability */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Form Styling */
+form {
+    background-color: #f5deb3; /* Light brown background */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px; /* Consistent padding inside the form */
+    max-width: 500px; /* Restricts form width */
+    margin: 20px auto; /* Centers the form on the page */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+    /* Label Styling */
+    form label {
+        font-weight: bold;
+        display: block; /* Ensures labels take up their line */
+        margin-bottom: 5px; /* Space below labels */
+    }
+
+    /* Input and Select Styling */
+    form .form-control,
+    form .form-select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #6b3d1e; /* Subtle border */
+        border-radius: 5px; /* Slight rounding of edges */
+        box-sizing: border-box;
+    }
+
+/* Error Message Styling */
+.text-danger {
+    color: #d9534f; /* Bootstrap danger color for errors */
+    font-size: 0.9em;
+}
+
+/* General Button Styling */
+button:not(.logout-btn) {
+    background-color: #6b3d1e; /* Dark brown button background */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px; /* Space between buttons */
+    text-decoration: none;
+    font-size: 1em; /* Ensure font size matches other buttons */
+}
+
+    button:not(.logout-btn):hover {
+        background-color: #5a3219; /* Slightly darker shade on hover */
+    }
+
+/* Links Styled as Buttons */
+a.btn {
+    text-decoration: none; /* Removes underline */
+    display: inline-block;
+    text-align: center;
+    background-color: #6b3d1e; /* Dark brown for consistency */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+    a.btn:hover {
+        background-color: #5a3219; /* Matches hover effect with buttons */
+    }
+
+/* Image Styling */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px; /* Rounded corners for images */
+}
+
+/* Headings */
+h2 {
+    text-align: center;
+    color: #6b3d1e; /* Dark brown heading color */
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+/* Container for Forms */
+.form-container {
+    padding: 15px;
+    border: 1px solid #e3c8a7; /* Matches light brown */
+    background-color: #ffffff; /* Contrast for readability */
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: auto;
+}

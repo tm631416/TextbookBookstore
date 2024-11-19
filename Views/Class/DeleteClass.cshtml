@@ -1,15 +1,14 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-<h2>Delete A Class</h2>
+﻿@model Class
 
-@model Class
+@section Styles {
+    <link href="~/css/Delete.css" rel="stylesheet" />
+}
+
+<h2>Delete A Class</h2>
 
 <form asp-action="DeleteClass" method="post">
     <input type="hidden" asp-for="ClassId" />
     <h3>@Model.ClassName</h3>
     <button type="submit" class="btn btn-primary">Delete</button>
-    <a asp-controller="Language" asp-action="Index" class="btn btn-primary">Cancel</a>
+    <a asp-controller="Class" asp-action="Index" class="btn btn-primary">Cancel</a>
 </form>

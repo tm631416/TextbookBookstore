@@ -1,0 +1,79 @@
+﻿/* General Page Styling */
+body {
+    background-image: url('../images/BackgroundImage.png'); /* Background image */
+    background-size: cover; /* Full background */
+    background-repeat: no-repeat; /* No tiling */
+    background-position: center; /* Centered image */
+    background-attachment: fixed; /* Fixed during scrolling */
+    font-family: Arial, sans-serif; /* Clean font */
+    color: #333; /* Default text color */
+    margin: 0;
+    padding: 0;
+}
+
+/* Heading Styling */
+h2 {
+    text-align: center; /* Center-align the heading */
+    color: #333; /* Dark text for contrast */
+    margin-top: 20px; /* Space above heading */
+    margin-bottom: 20px; /* Space below heading */
+    font-size: 2em; /* Larger font size for prominence */
+}
+
+/* Paragraph Styling (e.g., when no orders are available) */
+p {
+    text-align: center; /* Centered text */
+    color: #6b3d1e; /* Soft brown color */
+    font-size: 1.2em; /* Slightly larger text */
+    margin-top: 20px; /* Space above text */
+}
+
+/* Table Styling */
+table {
+    width: 80%; /* Table spans most of the page */
+    margin: 20px auto; /* Center the table */
+    border-collapse: collapse; /* Remove spacing between table cells */
+    background-color: #f5deb3; /* Light brown background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds depth with shadow */
+    border-radius: 10px; /* Smooth corners */
+    overflow: hidden; /* Rounded corners apply to contents */
+}
+
+    /* Table Header Styling */
+    table th {
+        background-color: #6b3d1e; /* Dark brown header background */
+        color: white; /* White text for contrast */
+        font-weight: bold;
+        padding: 10px; /* Padding inside cells */
+        text-align: left; /* Align header text to the left */
+    }
+
+    /* Table Body Styling */
+    table td {
+        padding: 10px; /* Padding inside cells */
+        border: 1px solid #ddd; /* Subtle cell borders */
+        background-color: #fff; /* White row background */
+    }
+
+    /* Table Row Hover Effect */
+    table tbody tr:hover {
+        background-color: #f7e7d2; /* Light hover effect */
+    }
+
+/* Button Styling */
+a.btn, button.btn {
+    background-color: #6b3d1e; /* Dark brown background */
+    color: white; /* White text for contrast */
+    padding: 10px 15px;
+    border-radius: 5px; /* Rounded corners */
+    text-decoration: none; /* Removes underline from links */
+    font-size: 1em; /* Standard font size */
+    display: inline-block; /* Ensures proper spacing */
+    margin-right: 10px; /* Space between buttons */
+}
+
+    a.btn:hover, button.btn:hover {
+        background-color: #5a3219; /* Slightly darker shade on hover */
+    }
+
+

@@ -1,0 +1,108 @@
+﻿/* General Page Styling */
+body {
+    background-image: url('../images/BackgroundImage.png'); /* Path relative to the CSS file */
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-repeat: no-repeat; /* Prevents tiling */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the image fixed while scrolling */
+    font-family: Arial, sans-serif; /* Clean and modern font */
+    color: #333; /* General text color */
+    margin: 0;
+    padding: 0;
+}
+
+/* Heading Styling */
+h2 {
+    text-align: center; /* Centers the headings */
+    color: #6b3d1e; /* Dark brown for consistency */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow for depth */
+}
+
+/* Paragraph Styling */
+p {
+    font-size: 1.1em; /* Slightly larger text for readability */
+    margin: 10px 0;
+    text-align: center; /* Centers the order details */
+}
+
+/* Table Styling */
+table {
+    width: 80%; /* Adjust width of the table */
+    margin: 20px auto; /* Centers the table horizontally */
+    border-collapse: collapse; /* Neat table borders */
+    background-color: #f5deb3; /* Light brown background for the table */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds subtle shadow */
+    border-radius: 10px; /* Rounded corners for the entire table */
+    overflow: hidden; /* Ensures rounded corners apply to contents */
+}
+
+    table th, table td {
+        padding: 10px; /* Padding inside table cells */
+        text-align: left; /* Aligns text to the left */
+        border: 1px solid #6b3d1e; /* Subtle border with dark brown */
+        color: #333; /* Dark text for readability */
+    }
+
+    table th {
+        background-color: #e3c8a7; /* Light brown for table headers */
+        font-weight: bold; /* Emphasizes header text */
+    }
+
+    table tr:nth-child(even) {
+        background-color: #f7e7d2; /* Lighter shade for even rows */
+    }
+
+    table tr:hover {
+        background-color: #fff; /* Highlights row on hover */
+    }
+
+/* Button Styling */
+a.btn {
+    background-color: #6b3d1e; /* Dark brown background */
+    color: white; /* White text for contrast */
+    padding: 10px 15px;
+    border-radius: 5px; /* Rounded corners */
+    text-decoration: none; /* Removes underline from links */
+    font-size: 1em; /* Standard font size */
+    display: inline-block; /* Ensures proper spacing */
+    margin: 10px 5px; /* Space around buttons */
+    text-align: center;
+}
+
+    a.btn:hover {
+        background-color: #5a3219; /* Slightly darker shade on hover */
+    }
+
+/* Flexbox Styling for Buttons */
+.button-container {
+    display: flex; /* Flexbox for aligning buttons */
+    justify-content: center; /* Centers buttons horizontally */
+    margin-top: 20px;
+    gap: 10px; /* Space between buttons */
+}
+
+/* Image Styling */
+img {
+    max-width: 100%; /* Ensures images don’t overflow their container */
+    height: auto; /* Maintains the image's aspect ratio */
+    display: block; /* Removes unwanted spacing below images */
+    margin: 10px auto; /* Centers images horizontally and adds space around */
+    border: 2px solid #6b3d1e; /* Adds a subtle border to images */
+    border-radius: 10px; /* Rounded corners for images */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a soft shadow to images */
+}
+
+    /* Specific Image Classes */
+    img.thumbnail {
+        width: 150px; /* Thumbnail-sized images */
+        height: auto; /* Keeps aspect ratio */
+        border-radius: 5px; /* Slightly rounded corners */
+    }
+
+    img.full-width {
+        width: 100%; /* Image spans the full width of its container */
+        border-radius: 10px; /* More prominent rounded corners */
+    }

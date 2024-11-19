@@ -123,6 +123,7 @@ namespace TextbookBookstore.Controllers
             ViewBag.Action = "Edit";
             Book book = _context.Books.Find(id);
             ViewBag.Languages = _context.Languages.OrderBy(l => l.LanguageName).ToList();
+            ViewBag.Classes = _context.Classes.OrderBy(c => c.ClassName).ToList();
             return View("AddBook", book);
         }
         [Authorize(Roles = "Admin")]
@@ -131,6 +132,7 @@ namespace TextbookBookstore.Controllers
         {
             var book = _context.Books.Find(id);
             ViewBag.Languages = _context.Languages.OrderBy(l => l.LanguageName).ToList();
+            ViewBag.Classes = _context.Classes.OrderBy(c => c.ClassName).ToList();
             return View(book);
         }
         [Authorize(Roles = "Admin")]

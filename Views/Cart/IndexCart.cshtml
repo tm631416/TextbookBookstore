@@ -1,4 +1,8 @@
-﻿@*
+﻿@model List<CartItem>
+@section Styles {
+    <link href="~/css/Cart.css" rel="stylesheet" />
+}
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
     Next work on if/else statement for an empty cart
@@ -7,41 +11,47 @@
 }
 <h2>Your Cart</h2>
 
-@model List<CartItem>
 @if (!Model.Any())
 {
-    <p>There are currently no items in your cart.</p>
+    <p class="empty-cart">There are currently no items in your cart.</p>
     <a asp-action="ListBook" asp-controller="Book" class="btn btn-primary">Return to Books</a>
 }
 else
 {
-    <h2>Your Cart</h2>
-
     <table>
-        <tr>
-            <th>Book Title</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Total</th>
-            <th></th>
-        </tr>
-        @foreach (var item in Model)
-        {
+        <thead>
             <tr>
-                <td>@item.Book.Title</td>
-                <td>@item.Quantity</td>
-                <td>@item.Book.Price</td>
-                <td>@(item.Quantity * item.Book.Price)</td>
-                <td>
-                    <a asp-action="RemoveFromCart" asp-route-id="@item.BookId" class="btn btn-danger btn-sm">Remove</a>
-                </td>
+                <th>Book Cover</th>
+                <th>Book Information</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th></th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><img src="~/@item.Book.BookCover" /></td>
+                    <td>@item.Book.Title<br>@item.Book.Author</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Book.Price.ToString("C2")</td>
+                    <td>@((item.Quantity * item.Book.Price).ToString("C2"))</td>
+                    <td>
+                        <a asp-action="RemoveFromCart" asp-route-id="@item.BookId" class="btn btn-danger btn-sm">Remove</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
-    <a asp-action="ClearCart" asp-controller="Cart" class="btn btn-danger btn-sm">Clear Cart</a>
-    <a asp-action="SubmitOrder" class="btn btn-primary">Submit Order</a>
-    <a asp-action="ListBook" asp-controller="Book" class="btn btn-primary">Cancel</a>
+    <div class="cart-actions">
+        <a asp-action="ClearCart" asp-controller="Cart" class="btn btn-danger">Clear Cart</a>
+        <a asp-action="SubmitOrder" class="btn btn-primary">Submit Order</a>
+        <a asp-action="ListBook" asp-controller="Book" class="btn btn-primary">Cancel</a>
+    </div>
 }
+
 
 
 

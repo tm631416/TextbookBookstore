@@ -1,15 +1,16 @@
 ﻿@model Book
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+
+@section Styles {
+    <link href="~/css/Delete.css" rel="stylesheet" />
 }
+
 <h2>Delete Book</h2>
 
 <form asp-action="DeleteBook" method="post">
     <input type="hidden" asp-for="BookId" />
-    <h2>@Model.Title, @Model.Language.LanguageName</h2>
-    <h2>@Model.Author</h2>
+    <img src="~/@Model.BookCover" alt="Book Cover" class="book-cover" />
+    <h2>@Model.Title, @Model.Author</h2>
+    <h2>@Model.Language.LanguageName, @Model.Class.ClassName</h2>
     <button type="submit" class="btn btn-primary">Delete</button>
     <a asp-controller="Book" asp-action="ListBook" class="btn btn-primary">Cancel</a>
 </form>

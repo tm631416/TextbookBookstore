@@ -1,5 +1,9 @@
 ﻿@model Language
 
+@section Styles {
+    <link href="~/css/Add.css" rel="stylesheet" />
+}
+
 <h2>@ViewBag.Action Language</h2>
 
 <form asp-action="AddLanguage" method="post">
@@ -10,5 +14,5 @@
         <span asp-validation-for="LanguageName" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Add</button>
-    <a asp-action="ListBook" asp-controller="Book" class="btn btn-primary">Cancel</a>
+    <a asp-action="Index" asp-controller="Language" class="btn btn-primary">Cancel</a>
 </form>

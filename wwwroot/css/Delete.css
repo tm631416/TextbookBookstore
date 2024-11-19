@@ -1,0 +1,97 @@
+﻿/* General Page Styling */
+body {
+    background-image: url('../images/BackgroundImage.png'); /* Path relative to the CSS file */
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-repeat: no-repeat; /* Prevents tiling */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the image fixed while scrolling */
+    font-family: Arial, sans-serif;
+    color: #333; /* Ensures readable text */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Page Container */
+.page-container {
+    max-width: 800px;
+    margin: 40px auto; /* Centers the page and adds space above and below */
+    padding: 20px;
+    background-color: #f5deb3; /* Light brown background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+/* Header Styling */
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+    .header h1 {
+        color: #6b3d1e; /* Dark brown color */
+        font-size: 2em;
+    }
+
+/* Content Section */
+.content {
+    text-align: center;
+}
+
+    .content h2 {
+        color: #6b3d1e;
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+
+/* Form Styling */
+form {
+    margin-top: 20px;
+    text-align: center;
+}
+
+    form button {
+        background-color: #6b3d1e; /* Dark brown */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        margin-right: 10px;
+    }
+
+        form button:hover {
+            background-color: #5a3219; /* Slightly darker brown for hover */
+        }
+
+/* Cancel Link Styled as a Button */
+a.btn {
+    background-color: #6b3d1e;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1em;
+    margin-right: 10px;
+}
+
+    a.btn:hover {
+        background-color: #5a3219; /* Hover effect for the cancel button */
+    }
+/* General Image Styling */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px; /* Adds slight rounding to image edges */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow for depth */
+    margin-bottom: 20px; /* Adds spacing below the image */
+}
+
+/* Specific Styling for Book Cover */
+.book-cover {
+    display: block; /* Ensures the image takes its own line */
+    max-width: 200px; /* Limits the image width to a reasonable size */
+    margin: 0 auto 20px; /* Centers the image and adds space below it */
+    border: 2px solid #6b3d1e; /* Adds a dark brown border for contrast */
+}
