@@ -56,12 +56,13 @@
     {
         <div class="mt-3">
             <label>Current Book Cover:</label>
-            <img src="~/@Model.BookCover" alt="Book Cover" style="max-width: 200px;" class="d-block" />
+            <img src="~/@Model.BookCover" alt="Book Cover" style="max-width: 200px;" class="d-block"/>
+            <input type="hidden" asp-for="BookCover" value="@Model.BookCover" />
         </div>
     }
     <div>
         <label asp-for="BookCover" class="form-label">Book Cover:</label>
-        <input type="file" name="BookCover" class="form-control" />
+        <input type="file" name="BookCover" class="form-control"/>
         <span asp-validation-for="BookCover" class="text-danger"></span>
     </div>
 

@@ -18,26 +18,26 @@ namespace TextbookBookstore.Controllers
         }
         public IActionResult ListBook(string? language, string? className)
         {
-            IQueryable<Book> query = _context.Books.Include(b => b.Language).Include(b => b.Class);
+                IQueryable<Book> query = _context.Books.Include(b => b.Language).Include(b => b.Class);
 
-            if (!string.IsNullOrEmpty(language))
-            {
-                query = query.Where(b => b.Language.LanguageName == language);
-            }
+                if (!string.IsNullOrEmpty(language))
+                {
+                    query = query.Where(b => b.Language.LanguageName == language);
+                }
 
-            if (!string.IsNullOrEmpty(className))
-            {
-                query = query.Where(b => b.Class.ClassName == className);
-            }
-    
-            var books = query.OrderBy(b => b.Title).ToList();
-    
-            ViewBag.Languages = _context.Languages.ToList();
-            ViewBag.Classes = _context.Classes.ToList();
-            ViewBag.SelectedLanguage = language;
-            ViewBag.SelectedClass = className;
-    
-            return View(books);
+                if (!string.IsNullOrEmpty(className))
+                {
+                    query = query.Where(b => b.Class.ClassName == className);
+                }
+
+                var books = query.OrderBy(b => b.Title).ToList();
+
+                ViewBag.Languages = _context.Languages.ToList();
+                ViewBag.Classes = _context.Classes.ToList();
+                ViewBag.SelectedLanguage = language;
+                ViewBag.SelectedClass = className;
+
+                return View(books);
         }
 
 
@@ -45,14 +45,23 @@ namespace TextbookBookstore.Controllers
         [HttpGet]
         public IActionResult AddBook()
         {
-            ViewBag.Action = "Add";
-            ViewBag.Languages = _context.Languages.OrderBy(l => l.LanguageName).ToList();
-            ViewBag.Classes = _context.Classes.OrderBy(c => c.ClassName).ToList();
-            var model = new Book
+            try
             {
-                PublishedDate = DateTime.Today
-            };
-            return View(model);
+                ViewBag.Action = "Add";
+                ViewBag.Languages = _context.Languages.OrderBy(l => l.LanguageName).ToList();
+                ViewBag.Classes = _context.Classes.OrderBy(c => c.ClassName).ToList();
+                var model = new Book
+                {
+                    PublishedDate = DateTime.Today
+                };
+                return View(model);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error Getting Add Book: {ex.Message}");
+                return RedirectToAction("ListBook", "Book");
+            }
+            
         }
         [Authorize(Roles = "Admin")]
         [HttpPost]
@@ -113,98 +122,152 @@ namespace TextbookBookstore.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine($"Error adding book: {ex.Message}");
+                return View(book);
             }
-            return View(book);
+            
         }
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult EditBook(int id)
         {
-            ViewBag.Action = "Edit";
-            Book book = _context.Books.Find(id);
-            ViewBag.Languages = _context.Languages.OrderBy(l => l.LanguageName).ToList();
-            ViewBag.Classes = _context.Classes.OrderBy(c => c.ClassName).ToList();
-            return View("AddBook", book);
+            try
+            {
+                ViewBag.Action = "Edit";
+                Book book = _context.Books.Find(id);
+                ViewBag.Languages = _context.Languages.OrderBy(l => l.LanguageName).ToList();
+                ViewBag.Classes = _context.Classes.OrderBy(c => c.ClassName).ToList();
+                return View("AddBook", book);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error HttpGet EditBook: {ex.Message}");
+                return View("ListBook", "Book");
+            }
         }
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult DeleteBook(int id)
         {
-            var book = _context.Books.Find(id);
-            ViewBag.Languages = _context.Languages.OrderBy(l => l.LanguageName).ToList();
-            ViewBag.Classes = _context.Classes.OrderBy(c => c.ClassName).ToList();
-            return View(book);
+            try
+            {
+                var book = _context.Books.Find(id);
+                ViewBag.Languages = _context.Languages.OrderBy(l => l.LanguageName).ToList();
+                ViewBag.Classes = _context.Classes.OrderBy(c => c.ClassName).ToList();
+                return View(book);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error HttpGet DeleteBook: {ex.Message}");
+                return View("ListBook", "Book");
+            }
+            
         }
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult DeleteBook(Book book)
         {
-            _context.Books.Remove(book);
-            _context.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            try
+            {
+                _context.Books.Remove(book);
+                _context.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error Deleting Book: {ex.Message}");
+                return View(book);
+            }
+            
         }
         public async Task<IActionResult> DetailsBook(int id)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var book = await _context.Books
-                                    .Include(b => b.Language)
-                                    .FirstOrDefaultAsync(b => b.BookId == id);
-
-            if (book == null)
+            try
             {
-                return NotFound();
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                var book = await _context.Books
+                                        .Include(b => b.Language)
+                                        .FirstOrDefaultAsync(b => b.BookId == id);
+
+                if (book == null)
+                {
+                    return NotFound();
+                }
+
+                // Retrieve the user's individual status for this book
+                var userBookStatus = await _context.UserBookStatuses
+                                                   .FirstOrDefaultAsync(ubs => ubs.BookId == id && ubs.UserId == userId);
+
+                var viewModel = new BookDetailsViewModel
+                {
+                    Book = book,
+                    UserStatus = userBookStatus?.Status ?? "Not Started" // Default to "Not Started" if no status exists
+                };
+
+                return View(viewModel);
             }
-
-            // Retrieve the user's individual status for this book
-            var userBookStatus = await _context.UserBookStatuses
-                                               .FirstOrDefaultAsync(ubs => ubs.BookId == id && ubs.UserId == userId);
-
-            var viewModel = new BookDetailsViewModel
+            catch(Exception ex)
             {
-                Book = book,
-                UserStatus = userBookStatus?.Status ?? "Not Started" // Default to "Not Started" if no status exists
-            };
-
-            return View(viewModel);
+                Console.WriteLine($"Error HttpGet DetailsBook: {ex.Message}");
+                return View("ListBook", "Book");
+            }
+            
         }
 
         [HttpGet]
         public IActionResult BookStatus(int id)
         {
-            var book = _context.Books.Find(id);
-            if (book == null)
+            try
             {
-                return NotFound();
+                var book = _context.Books.Find(id);
+                if (book == null)
+                {
+                    return NotFound();
+                }
+
+                return View(book);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error HttpGet BookStatus: {ex.Message}");
+                return View("ListBook", "Book");
             }
 
-            return View(book);
         }
         [HttpPost]
         public async Task<IActionResult> BookStatus(int id, string BookStatus)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userBookStatus = await _context.UserBookStatuses
-                .FirstOrDefaultAsync(ubs => ubs.BookId == id && ubs.UserId == userId);
-
-            if (userBookStatus == null)
+            try
             {
-                userBookStatus = new UserBookStatus
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var userBookStatus = await _context.UserBookStatuses
+                    .FirstOrDefaultAsync(ubs => ubs.BookId == id && ubs.UserId == userId);
+
+                if (userBookStatus == null)
                 {
-                    BookId = id,
-                    UserId = userId,
-                    Status = BookStatus
-                };
-                _context.UserBookStatuses.Add(userBookStatus);
+                    userBookStatus = new UserBookStatus
+                    {
+                        BookId = id,
+                        UserId = userId,
+                        Status = BookStatus
+                    };
+                    _context.UserBookStatuses.Add(userBookStatus);
+                }
+                else
+                {
+                    userBookStatus.Status = BookStatus;
+                    _context.UserBookStatuses.Update(userBookStatus);
+                }
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction("DetailsBook", new { id });
             }
-            else
+            catch(Exception ex)
             {
-                userBookStatus.Status = BookStatus;
-                _context.UserBookStatuses.Update(userBookStatus);
+                Console.WriteLine($"Error Altering Book Status: {ex.Message}");
+                return View("ListBook", "Book");
             }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction("DetailsBook", new { id });
         }
 
     }

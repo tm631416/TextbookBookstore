@@ -15,59 +15,111 @@ namespace TextbookBookstore.Controllers
         }
         public IActionResult Index()
         {
-            var query = _context.Classes.ToList();
-            return View(query);
+            try
+            {
+                var query = _context.Classes.ToList();
+                return View(query);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error Getting Class List: {ex.Message}");
+                return RedirectToAction("ListBook", "Book");
+            }
         }
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult AddClass()
         {
-            ViewBag.Action = "Add";
-            return View(new Class());
+            try
+            {
+                ViewBag.Action = "Add";
+                return View(new Class());
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error Getting Add Class: {ex.Message}");
+                return RedirectToAction("Index", "Class");
+            }
         }
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult EditClass(int id)
         {
-            var query = _context.Classes.Find(id);
-            return View("AddClass", query);
+            try
+            {
+                var query = _context.Classes.Find(id);
+                return View("AddClass", query);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error Getting Edit Class: {ex.Message}");
+                return RedirectToAction("Index", "Class");
+            }
+            
         }
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddClass(Class classes)
         {
-            if (ModelState.IsValid)
+            try
             {
-                if (classes.ClassId == 0)
+                if (ModelState.IsValid)
                 {
-                    _context.Classes.Add(classes);
+                    if (classes.ClassId == 0)
+                    {
+                        _context.Classes.Add(classes);
+                    }
+                    else
+                    {
+                        _context.Classes.Update(classes);
+                    }
+                    _context.SaveChanges();
+                    return RedirectToAction("Index", "Class");
                 }
                 else
                 {
-                    _context.Classes.Update(classes);
+                    return View(classes);
                 }
-                _context.SaveChanges();
-                return RedirectToAction("Index", "Class");
             }
-            else
+            catch(Exception ex)
             {
+                Console.WriteLine($"Error Adding Class To Db: {ex.Message}");
                 return View(classes);
             }
+            
         }
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult DeleteClass(int id)
         {
-            var query = _context.Classes.Find(id);
-            return View(query);
+            try
+            {
+                var query = _context.Classes.Find(id);
+                return View(query);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error Getting DeleteClass: {ex.Message}");
+                return RedirectToAction("Index", "Class");
+            }
+            
         }
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult DeleteClass(Class classes)
         {
-            _context.Classes.Remove(classes);
-            _context.SaveChanges();
-            return RedirectToAction("Index", "Class");
+            try
+            {
+                _context.Classes.Remove(classes);
+                _context.SaveChanges();
+                return RedirectToAction("Index", "Class");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error Deleting Class From DB: {ex.Message}");
+                return View(classes);
+            }
+            
         }
     }
 

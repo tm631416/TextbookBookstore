@@ -12,59 +12,113 @@ namespace TextbookBookstore.Controllers
         public LanguageController(ApplicationDbContext ctx) => context = ctx;
         public IActionResult Index()
         {
-            var query = context.Languages.ToList();
-            return View(query);
+            try
+            {
+                var query = context.Languages.ToList();
+                return View(query);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error Opening Language Index: {ex.Message}");
+                return RedirectToAction("ListBook", "Book");
+            }
+            
         }
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult AddLanguage()
         {
-            ViewBag.Action = "Add";
-            return View(new Language());
+            try
+            {
+                ViewBag.Action = "Add";
+                return View(new Language());
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error Getting Add Language: {ex.Message}");
+                return RedirectToAction("Index", "Language");
+            }
+            
         }
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult EditLanguage(int id)
         {
-            var query = context.Languages.Find(id);
-            return View("AddLanguage", query);
+            try
+            {
+                var query = context.Languages.Find(id);
+                return View("AddLanguage", query);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error Getting Edit Language: {ex.Message}");
+                return RedirectToAction("Index", "Language");
+            }
+            
         }
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult AddLanguage(Language language)
         {
-            if (ModelState.IsValid)
+            try
             {
-                if(language.LanguageId == 0)
+                if (ModelState.IsValid)
                 {
-                    context.Languages.Add(language);
+                    if (language.LanguageId == 0)
+                    {
+                        context.Languages.Add(language);
+                    }
+                    else
+                    {
+                        context.Languages.Update(language);
+                    }
+                    context.SaveChanges();
+                    return RedirectToAction("Index", "Language");
                 }
                 else
                 {
-                    context.Languages.Update(language);
+                    return View(language);
                 }
-                context.SaveChanges();
-                return RedirectToAction("Index", "Language");
             }
-            else
+            catch(Exception ex)
             {
+                Console.WriteLine($"Error Adding Language To DB: {ex.Message}");
                 return View(language);
             }
+            
         }
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult DeleteLanguage(int id)
         {
-            var query = context.Languages.Find(id);
-            return View(query);
+            try
+            {
+                var query = context.Languages.Find(id);
+                return View(query);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error Getting Delete Language: {ex.Message}");
+                return RedirectToAction("Index", "Language");
+            }
+            
         }
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult DeleteLanguage(Language language)
         {
-            context.Languages.Remove(language);
-            context.SaveChanges();
-            return RedirectToAction("Index", "Language");
+            try
+            {
+                context.Languages.Remove(language);
+                context.SaveChanges();
+                return RedirectToAction("Index", "Language");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error Deleting Language From DB: {ex.Message}");
+                return View(language);
+            }
+            
         }
 }
 }
